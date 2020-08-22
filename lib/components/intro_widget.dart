@@ -14,21 +14,23 @@ class IntroWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.headline4,
-        ),
-        SizedBox(height: 4.0),
-        Text(
-          description,
-          style: Theme.of(context).textTheme.bodyText2,
-          textAlign: TextAlign.justify,
-        ),
-        SizedBox(height: 16.0),
-      ],
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headline4,
+          ),
+          SizedBox(height: 4.0),
+          Text(
+            description,
+            style: Theme.of(context).textTheme.bodyText2,
+            textAlign: TextAlign.justify,
+          ),
+          SizedBox(height: 16.0),
+        ],
+      ),
     );
   }
 }
