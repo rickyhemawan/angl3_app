@@ -1,16 +1,12 @@
-# angl3_app
+# Angl3 App
 
-A new Flutter application.
+Display triangle from angles you provide. Calculate the side percentage of each Triangle you made.
 
-## Getting Started
+![Front Image](https://user-images.githubusercontent.com/42329148/90962255-63b80400-e4e1-11ea-969b-3be9dd6bfac1.png)
 
-This project is a starting point for a Flutter application.
+## Main Features
+* Generate Triangle Image from angles provided by you.
+* Calculate the length proportions of the triangle's sides.
+* Good for School Teachers, Students, and any geometry related activity
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This is my attempt on [Indonesia Maju Hackfest 2020](https://indonesiamajuhackfest.devpost.com/)
