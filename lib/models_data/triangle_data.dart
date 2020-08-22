@@ -54,7 +54,11 @@ class TriangleData with ChangeNotifier, DiagnosticableTreeMixin {
         : modifyAngles.reduce((value, element) => value + element);
   }
 
-  bool get isModifyAnglesSum180 => modifyAnglesSum == 180;
+  bool get isModifyAnglePerfect =>
+      modifyAnglesSum == 180 && modifyAngles.length == 3;
+
+  bool get isFillOne => modifyAnglesSum < 180 && modifyAngles.length == 2;
+  bool get isFillTwo => modifyAnglesSum < 180 && modifyAngles.length == 1;
 
   void onAngleSubmitted({
     String result,
@@ -81,6 +85,43 @@ class TriangleData with ChangeNotifier, DiagnosticableTreeMixin {
     controller.clear();
     double x = stringToDouble1Decimal(result);
     modifyAngles.add(x);
+    notifyListeners();
+  }
+
+  void clearModifyAnglesDialog() {
+    modifyAngles = [];
+    notifyListeners();
+  }
+
+  void onModifyAnglesSubmitted() {
+    triangle.setAnglesFromArray(modifyAngles);
+    triangle.calculateSides();
+    clearModifyAnglesDialog();
+  }
+
+  void onFillOneSubmitted() {
+    modifyAngles.add(180 - modifyAnglesSum);
+    notifyListeners();
+  }
+
+  void onFillTwoSubmitted() {
+    double firstHalf =
+        stringToDouble1Decimal(((180 - modifyAnglesSum) / 2).toString());
+    double wtfIsThis =
+        ((stringToDouble1Decimal(((180 - modifyAnglesSum) * 10).toString())));
+    bool isOdd = wtfIsThis.toInt().isOdd;
+    modifyAngles.add(firstHalf);
+    print("WTF $wtfIsThis, isOdd $isOdd");
+    if (isOdd)
+      modifyAngles.add(firstHalf + 0.1);
+    else
+      modifyAngles.add(firstHalf);
+
+    notifyListeners();
+  }
+
+  void removeOneAngle(double val) {
+    modifyAngles.remove(val);
     notifyListeners();
   }
 }

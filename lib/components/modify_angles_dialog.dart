@@ -35,9 +35,43 @@ class ModifyAnglesDialog extends StatelessWidget {
     ];
     List<Widget> chips = [];
     for (int i = 0; i < angles.length; i++) {
-      chips.add(AngleChip(color: colors[i], degree: angles[i]));
+      chips.add(AngleChip(
+        color: colors[i],
+        degree: angles[i],
+        onDeleted: () => triangleData.removeOneAngle(angles[i]),
+      ));
     }
     return chips;
+  }
+
+  Widget submitModification(BuildContext context) {
+    if (!triangleData.isModifyAnglePerfect) return SizedBox();
+    return PlainButton(
+      color: Colors.green,
+      label: "Submit Modification",
+      onTap: () {
+        triangleData.onModifyAnglesSubmitted();
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  Widget fillOne(BuildContext context) {
+    if (!triangleData.isFillOne) return SizedBox();
+    return PlainButton(
+      label: "Fill the Last One",
+      color: Colors.orange,
+      onTap: triangleData.onFillOneSubmitted,
+    );
+  }
+
+  Widget fillTwo(BuildContext context) {
+    if (!triangleData.isFillTwo) return SizedBox();
+    return PlainButton(
+      label: "Fill the Other Two",
+      color: Colors.blue,
+      onTap: triangleData.onFillTwoSubmitted,
+    );
   }
 
   @override
@@ -61,7 +95,7 @@ class ModifyAnglesDialog extends StatelessWidget {
                 SizedBox(height: 16.0),
                 InfoContainer(
                   context: context,
-                  color: triangleData.isModifyAnglesSum180
+                  color: triangleData.isModifyAnglePerfect
                       ? Colors.green
                       : Colors.red,
                   name: "Sum",
@@ -92,10 +126,58 @@ class ModifyAnglesDialog extends StatelessWidget {
                     onMsgReceived: onMsgReceived,
                   ),
                 ),
+                submitModification(context),
+                fillOne(context),
+                fillTwo(context),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class PlainButton extends StatelessWidget {
+  const PlainButton({
+    Key key,
+    @required this.label,
+    @required this.color,
+    this.onTap,
+  }) : super(key: key);
+
+  final String label;
+  final Color color;
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.white,
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(6.0),
+            ),
+            color: color,
+          ),
+          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  color: color.computeLuminance() > 0.5
+                      ? Colors.black
+                      : Colors.white,
+                ),
+          ),
+        ),
       ),
     );
   }

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class AngleChip extends StatelessWidget {
   final Color color;
   final double degree;
+  final void Function() onDeleted;
 
   const AngleChip({
     Key key,
     @required this.color,
     @required this.degree,
+    @required this.onDeleted,
   }) : super(key: key);
 
   @override
@@ -17,7 +19,7 @@ class AngleChip extends StatelessWidget {
         Icons.cancel,
         color: color.computeLuminance() > 0.5 ? Colors.black : Colors.white,
       ),
-      onDeleted: () => print("deleted"),
+      onDeleted: onDeleted,
       label: Text(
         degree.toStringAsFixed(1) + "°",
         style: Theme.of(context).textTheme.headline6.copyWith(
