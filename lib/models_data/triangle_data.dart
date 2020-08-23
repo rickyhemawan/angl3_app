@@ -71,6 +71,16 @@ class TriangleData with ChangeNotifier, DiagnosticableTreeMixin {
       return;
     }
 
+    if (parsedResult == 0) {
+      onMsgReceived("0 is an invalid angle for Triangle");
+      return;
+    }
+
+    if (parsedResult < 0) {
+      onMsgReceived("Currently, we don't support negative angle");
+      return;
+    }
+
     if (stringToDouble1Decimal(result) < parsedResult) {
       onMsgReceived("Please don't use more than 1 decimal digits");
       return;
@@ -107,11 +117,10 @@ class TriangleData with ChangeNotifier, DiagnosticableTreeMixin {
   void onFillTwoSubmitted() {
     double firstHalf =
         stringToDouble1Decimal(((180 - modifyAnglesSum) / 2).toString());
-    double wtfIsThis =
+    double oddChecker =
         ((stringToDouble1Decimal(((180 - modifyAnglesSum) * 10).toString())));
-    bool isOdd = wtfIsThis.toInt().isOdd;
+    bool isOdd = oddChecker.toInt().isOdd;
     modifyAngles.add(firstHalf);
-    print("WTF $wtfIsThis, isOdd $isOdd");
     if (isOdd)
       modifyAngles.add(firstHalf + 0.1);
     else
